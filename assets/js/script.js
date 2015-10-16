@@ -1,55 +1,33 @@
-// /* Your JavaScript goes here */
-// (function() {
+    
+$('#Card_Number').validateCreditCard(function(result){
 
-// var visa = $('input#visa');
-// var amex = $('input#amex');
-// var discover = $('input#discover');
-// var mastercard = $('input#mc');
-
-// 	 	$.
-// 	 	fn.checked = function(value) {
-	        
-// 	        if(value === true || value === false) {
-// 	            $(this).each(function(){ 
-// 	            	this.checked = value; 
-// 	            });
-	            
-// 	        } 
-// 	    };
-
-
-
-
-	    $('#Card_Number').validateCreditCard(function(result){
-
-			if(result.card_type.name === 'amex'){
-				$("#amex").prop("checked", true); 
+				if (result.card_type === null){ $('.cc input').prop("checked",false)
 			}
-			else if(result.card_type.name === 'visa'){
-				$("#visa").prop("checked", true); 
-			}
-			if(result.card_type.name === 'discover'){
-				$("#discover").prop("checked", true); 
-			}
-			if(result.card_type.name === 'mastercard'){
-				$("#mc").prop("checked", true); 
-			}
-
+				else{ 
+					$("#" + result.card_type.name).prop("checked", true);
+			showAmex();}
 
 		});
 
-	// 		if (result.card_type.name === 'amex') {
-	// 			alert("this is american express");
-	// 		}
-	// 		else if (result.card_type.name === 'visa') {
-	// 			alert("this is visa");
-	// 		}
-	// 		else if (result.card_type.name === 'discover') {
-	// 			alert("this is discover");
-	// 		}
-	// 		else if (result.card_type.name === 'mastercard') {
-	// 			alert("this is mastercard");
-	// 		}
+function showAmex(){
+	var security = $('.csv-sprite');
+	if($('#amex').is(':checked')){
+		security.addClass('amex');
+	} else{security.removeClass('amex');
+}
+}
 
-	// 	});
-	// });
+
+Modernizr.load({
+	test: Modernizr.input.required,
+	nope: {
+		'validateFallback': 'assets/js/vendor/jquery.validate.min.js'
+	},
+
+callback: {
+	'validateFallback': function(url, result, key){
+		$('#whoo').validate();
+	}
+}
+
+	})
